@@ -19,8 +19,11 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib import admin
+from api_spotify import views
 
 urlpatterns = [
+    url(r'^$', views.index),
+    url(r'api_spotify/', include(('api_spotify.urls', 'api_spotify'), namespace='api_spotify')),
     url(r'^admin/', admin.site.urls),
 ]
 

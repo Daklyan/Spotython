@@ -25,6 +25,9 @@ https://www.it-swarm.dev/fr/python/comment-configurer-le-projet-django-dans-pych
 - Installer le package debug-toolbar :
 
         pip install django-debug-toolbar
+ 
+## Installer la lib spotipy
+    pip install spotipy --upgrade
 
 # Start project
 
