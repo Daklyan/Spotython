@@ -26,11 +26,14 @@ def login(request):
 
 
 def logout(request):
+    # response = HttpResponse('/')
     if request.method == 'GET':
         path = os.getcwd() + os.path.sep + '.cache_spotify'
         if os.path.isfile(path):
             os.remove(path)
-    return HttpResponse(request)
+        # response = logout(request)
+        # response.delete_cookie('user_location')
+    return request
 
 
 def logged(request):
