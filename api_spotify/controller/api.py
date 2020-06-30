@@ -73,6 +73,7 @@ def search_smth(search_string, limit):
 # 2 : Album picture url
 # 3 : Album url on Spotify
 # 4 : Track url on Spotify
+# 5 : Album name
 # limit = number of items
 # time_range = short_term || medium_term || long_term
 def get_arr_tracks(limit, time_range):
@@ -84,6 +85,8 @@ def get_arr_tracks(limit, time_range):
         arr_res[i].append(get_album_pic(item['album']['id']))  # Album picture url
         arr_res[i].append(item['album']['external_urls']['spotify'])  # Album url on spotify
         arr_res[i].append(item['external_urls']['spotify'])  # Track url on Spotify
+        arr_res[i].append(item['album']['name'])  # Album name
+        arr_res[i].append(item['artists'][0]['external_urls']['spotify'])  # Artist URL on spotify
         arr_res.append([])
     arr_res.pop()
     return arr_res
