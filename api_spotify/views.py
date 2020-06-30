@@ -20,14 +20,14 @@ def detail(request, album_id):
 def login(request):
     if request.method == 'GET':
         print("truc")
-    api.get_top_artist(10, "short_term")
-    return redirect(api.get_auth_manager().get_authorize_url())
-    #return HttpResponse(request)
+        api.get_top_artist(10, "short_term")
+        return redirect(api.get_auth_manager().get_authorize_url())
+    return HttpResponse(request)
 
 
 def logout(request):
     if request.method == 'GET':
-        path = os.getcwd() + os.path.sep + 'api_spotify' + os.path.sep + 'controller' + os.path.sep + '.cache_spotify'
+        path = os.getcwd() + os.path.sep + '.cache_spotify'
         if os.path.isfile(path):
             os.remove(path)
     return HttpResponse(request)
