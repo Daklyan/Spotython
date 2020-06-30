@@ -7,11 +7,13 @@
         </div>
         <div class="col-sm">
             <form class="form-inline" action="{% url 'api_spotify:login' %}" method="get">
-                <button href="{{ spotify_url }}">Log in</button>
+                <button>Log in</button>
             </form>
         </div>
         <div class="col-sm">
-            One of three columns
+            <form class="form-inline" action="{% url 'api_spotify:logout' %}" method="get">
+                <button>Log out</button>
+            </form>
         </div>
     </div>
 {% endblock%}
