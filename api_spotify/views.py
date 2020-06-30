@@ -34,11 +34,12 @@ def logout(request):
 
 
 def logged(request):
-    print(request)
-    test = ["natane", "autre", "chose", "tru"]
-    print("test avant")
-    test_api = api.get_top_tracks(1, "short_term")
-    print(test_api)
-    # print("test")
-    context = {'test': test_api}
-    return HttpResponse(render(request, 'api_spotify/index.html', context))
+    s = api.get_arr_tracks(1, "short_term")
+    m = api.get_top_tracks(1, "medium_term")
+    l = api.get_top_tracks(1, "long_term")
+    context = {
+        'short': s,
+        'medium': m,
+        'long': l
+    }
+    return HttpResponse(render(request, 'api_spotify/logged.html', context))

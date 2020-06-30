@@ -6,9 +6,9 @@ import os
 from spotipy import SpotifyOAuth
 
 # Client Id of the application https://developer.spotify.com/dashboard/applications
-os.environ['SPOTIPY_CLIENT_ID'] = 'CLIENT ID'
+os.environ['SPOTIPY_CLIENT_ID'] = 'bc588e09eb5e4b3a8e01068e211953e9'
 # Client Secret of the application https://developer.spotify.com/dashboard/applications
-os.environ['SPOTIPY_CLIENT_SECRET'] = 'CLIENT SECRET'
+os.environ['SPOTIPY_CLIENT_SECRET'] = 'b87f5f087a95447e8f502058096b476d'
 # URI to redirect after logged in
 os.environ['SPOTIPY_REDIRECT_URI'] = 'http://localhost:8000/logged'
 # Cache to store user token
@@ -78,6 +78,34 @@ def search_smth(search_string, limit):
     return spotipy.Spotify(auth_manager=get_auth_manager()).search(q=search_string, limit=limit)
 
 
+# Get top tracks in an array
+# limit = number of items
+# time_range = short_term || medium_term || long_term
+def get_arr_tracks(limit, time_range):
+    results = get_top_tracks(limit, time_range)
+    arr_res = [[]]
+    for i, item in enumerate(results['items']):
+        arr_res[i].append(item['name'])  # Track name
+        arr_res[i].append(item['artists'][0]['name'])  # Main artist name
+        arr_res[i].append(get_album_pic(item['album']['id']))  # Album picture url
+        arr_res.append([])
+    arr_res.pop()
+    return arr_res
+
+
+# Pas fini
+def get_arr_artists(limit, time_range):
+    results = get_top_artist(limit, time_range)
+    arr_res = [[]]
+    for i, item in enumerate(results['items']):
+        arr_res[i].append(item['name'])
+        arr_res[i].append(item['artists'][0]['name'])
+        arr_res[i].append(get_album_pic(item['album']['id']))
+        arr_res.append([])
+    arr_res.pop()
+    return arr_res
+
+
 # ============================= DEBUG =======================================
 
 def display_top_tracks(limit, time_range):
@@ -93,19 +121,5 @@ def display_top_artist(limit, time_range):
 
 
 #  ========================== TEST FIELD ====================================
-#
-# print(get_auth_manager().get_cached_token())
-# display_top_artist(10, 'long_term')
-# print(get_top_artist(10, 'short_term'))
-# print(search_smth("american idiot", 5))
-# print(search_smth("Judas Priest", 10))
-# print(get_artist('2tRsMl4eGxwoNabM08Dm4I')['name'])
-# print(search_smth('Ipséité', 10))
-# print(get_album_pic('7JJ1Zqwc0m0cDyXXodXCqb'))
-# print(get_artist_albums('2tRsMl4eGxwoNabM08Dm4I'))
-#
-# print(get_top_artist(10, 'short_term'))
-# print(get_auth_manager().get_cached_token())
-# refresh_token(get_auth_manager())
-# print(get_auth_manager().get_cached_token())
 
+print(get_arr_tracks(1, "short_term"))
