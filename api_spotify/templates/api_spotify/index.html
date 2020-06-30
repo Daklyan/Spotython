@@ -2,18 +2,5 @@
 
 {% block content %}
     <div class="row">
-        <div class="col-sm">
-            {% include 'api_spotify/list.html' %}
-        </div>
-        <div class="col-sm">
-            <form class="form-inline" action="{% url 'api_spotify:login' %}" method="get">
-                <button>Log in</button>
-            </form>
-        </div>
-        <div class="col-sm">
-            <form class="form-inline" action="{% url 'api_spotify:logout' %}" method="get">
-                <button>Log out</button>
-            </form>
-        </div>
     </div>
 {% endblock%}
