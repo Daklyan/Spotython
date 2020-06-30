@@ -1,19 +1,19 @@
 <div>
-   {% for i in short %}#}
         <div class="row row-cols-1 row-cols-md-3">
-          <div class="col mb-4">
-            <div class="card">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/250px-Image_created_with_a_mobile_phone.png" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h4 class="card-title">{{ i.track_name }}</h4>
-                <h5> {{ i.artist_name }}</h5>
-                  <a href="{{ i.picture_url }}"><h6>Couverture</h6></a>
-                  <a href="{{ i.album_url }}"><h6> Album </h6></a>
-                  <a href="{{ i.track_url }}"><h6> Morceau </h6></a>
+            {% for i in short %}#}
+              <div class="col mb-4">
+                <div class="card">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/250px-Image_created_with_a_mobile_phone.png" class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h4 class="card-title">{{ i.track_name }}</h4>
+                    <h5> {{ i.artist_name }}</h5>
+                      <a href="{{ i.picture_url }}"><h6>Couverture</h6></a>
+                      <a href="{{ i.album_url }}"><h6> Album </h6></a>
+                      <a href="{{ i.track_url }}"><h6> Morceau </h6></a>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
+            {% endfor %}#}
         </div>
 
-   {% endfor %}#}
 </div>
