@@ -26,6 +26,7 @@ urlpatterns = [
     url(r'api_spotify/', include(('api_spotify.urls', 'api_spotify'), namespace='api_spotify')),
     url(r'^admin/', admin.site.urls),
     url(r'logged', views.logged, name="logged"),
+    url(r'artiste', views.artiste, name="artiste"),
 ]
 
 if settings.DEBUG:

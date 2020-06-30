@@ -85,3 +85,39 @@ def logged(request):
         'long': result_l
     }
     return HttpResponse(render(request, 'api_spotify/logged.html', context))
+
+def artiste(request):
+    s = api.get_arr_artists(50, "short_term")
+    m = api.get_arr_artists(50, "medium_term")
+    l = api.get_arr_artists(50, "long_term")
+    result_s = [({
+            'artiste_name': i[0],
+            'artiste_picture': i[1],
+            'artiste_id': i[2],
+            'artist_url': i[3],
+            'iter': '#' + str(j + 1) + " - "
+        }) for j, i in enumerate(s)]
+
+    result_m = [({
+            'artiste_name': i[0],
+            'artiste_picture': i[1],
+            'artiste_id': i[2],
+            'artist_url': i[3],
+            'iter': '#' + str(j + 1) + " - "
+        }) for j, i in enumerate(m)]
+
+    result_l = [({
+            'artiste_name': i[0],
+            'artiste_picture': i[1],
+            'artiste_id': i[2],
+            'artist_url': i[3],
+            'iter': '#' + str(j + 1) + " - "
+        }) for j, i in enumerate(l)]
+
+
+    context = {
+        'short': result_s,
+        'medium': result_m,
+        'long': result_l
+    }
+    return HttpResponse(render(request, 'api_spotify/artiste.html', context))
