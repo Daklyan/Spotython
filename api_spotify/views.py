@@ -45,7 +45,9 @@ def logged(request):
         result_s.append({
             'track_name': i[0],
             'artist_name': i[1],
-            'picture_url': i[2]
+            'picture_url': i[2],
+            'album_url': i[3],
+            'track_url': i[4]
         })
 
     context = {
