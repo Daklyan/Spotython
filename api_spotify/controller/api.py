@@ -82,6 +82,8 @@ def get_arr_tracks(limit, time_range):
         arr_res[i].append(item['name'])  # Track name
         arr_res[i].append(item['artists'][0]['name'])  # Main artist name
         arr_res[i].append(get_album_pic(item['album']['id']))  # Album picture url
+        arr_res[i].append(item['album']['external_urls']['spotify'])  # Album url on spotify
+        arr_res[i].append(item['external_urls']['spotify'])  # Track url on Spotify
         arr_res.append([])
     arr_res.pop()
     return arr_res
