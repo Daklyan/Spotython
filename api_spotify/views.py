@@ -37,11 +37,19 @@ def logout(request):
 
 
 def logged(request):
-    s = api.get_arr_tracks(1, "short_term")
+    s = api.get_arr_tracks(2, "short_term")
     m = api.get_top_tracks(1, "medium_term")
     l = api.get_top_tracks(1, "long_term")
+    result_s = []
+    for i in s:
+        result_s.append({
+            'track_name': i[0],
+            'artist_name': i[1],
+            'picture_url': i[2]
+        })
+
     context = {
-        'short': s,
+        'short': result_s,
         'medium': m,
         'long': l
     }
