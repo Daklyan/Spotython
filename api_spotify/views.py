@@ -37,12 +37,51 @@ def logout(request):
 
 
 def logged(request):
-    s = api.get_arr_tracks(1, "short_term")
-    m = api.get_top_tracks(1, "medium_term")
-    l = api.get_top_tracks(1, "long_term")
+    s = api.get_arr_tracks(50, "short_term")
+    m = api.get_arr_tracks(50, "medium_term")
+    l = api.get_arr_tracks(50, "long_term")
+    result_s = []
+    result_m = []
+    result_l = []
+    for j, i in enumerate(s):
+        result_s.append({
+            'track_name': i[0],
+            'artist_name': i[1],
+            'picture_url': i[2],
+            'album_url': i[3],
+            'track_url': i[4],
+            'album_name': i[5],
+            'artist_url': i[6],
+            'iter': '#' + str(j + 1) + " - "
+        })
+
+    for j, i in enumerate(m):
+        result_m.append({
+            'track_name': i[0],
+            'artist_name': i[1],
+            'picture_url': i[2],
+            'album_url': i[3],
+            'track_url': i[4],
+            'album_name': i[5],
+            'artist_url': i[6],
+            'iter': '#' + str(j + 1) + " - "
+        })
+
+    for j, i in enumerate(l):
+        result_l.append({
+            'track_name': i[0],
+            'artist_name': i[1],
+            'picture_url': i[2],
+            'album_url': i[3],
+            'track_url': i[4],
+            'album_name': i[5],
+            'artist_url': i[6],
+            'iter': '#' + str(j + 1) + " - "
+        })
+
     context = {
-        'short': s,
-        'medium': m,
-        'long': l
+        'short': result_s,
+        'medium': result_m,
+        'long': result_l
     }
     return HttpResponse(render(request, 'api_spotify/logged.html', context))
