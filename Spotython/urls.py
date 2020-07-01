@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'logged', views.logged, name="logged"),
     url(r'artiste', views.artiste, name="artiste"),
+    url(r'logout', views.logout, name="logout"),
 ]
 
 if settings.DEBUG:

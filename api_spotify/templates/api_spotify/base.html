@@ -25,18 +25,21 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                  <a class="nav-link" href="{% url 'api_spotify:login' %}">Login<span class="sr-only">(current)</span></a>
-                </li>
-                  <li class="nav-item active">
-                  <a class="nav-link" href="{% url 'api_spotify:logout' %}">Logout <span class="sr-only">(current)</span></a>
-                </li>
-                  <li class="nav-item active">
-                  <a class="nav-link" href="{% url 'logged' %}">Chansons<span class="sr-only">(current)</span></a>
-                </li>
-                  <li class="nav-item active">
-                  <a class="nav-link" href="{% url 'artiste' %}">Artistes<span class="sr-only">(current)</span></a>
-                </li>
+                  {% if 'login' not in request.session %}
+                    <li class="nav-item active">
+                      <a class="nav-link" href="{% url 'api_spotify:login' %}">Login<span class="sr-only">(current)</span></a>
+                    </li>
+                  {% else %}
+                      <li class="nav-item active">
+                      <a class="nav-link" href="{% url 'logout' %}">Logout <span class="sr-only">(current)</span></a>
+                    </li>
+                      <li class="nav-item active">
+                      <a class="nav-link" href="{% url 'logged' %}">Chansons<span class="sr-only">(current)</span></a>
+                    </li>
+                      <li class="nav-item active">
+                      <a class="nav-link" href="{% url 'artiste' %}">Artistes<span class="sr-only">(current)</span></a>
+                    </li>
+                  {% endif %}
               </ul>
             </div>
           </nav>

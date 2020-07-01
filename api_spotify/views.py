@@ -26,17 +26,21 @@ def login(request):
 
 
 def logout(request):
-    # response = HttpResponse('/')
-    if request.method == 'GET':
-        path = os.getcwd() + os.path.sep + '.cache_spotify'
-        if os.path.isfile(path):
-            os.remove(path)
-        # response = logout(request)
-        # response.delete_cookie('user_location')
-    return request
+    if 'login' in request.session:
+        del request.session['login']
+    # # response = HttpResponse('/')
+    # if request.method == 'GET':
+    #     path = os.getcwd() + os.path.sep + '.cache_spotify'
+    #     if os.path.isfile(path):
+    #         os.remove(path)
+    #     # response = logout(request)
+    #     # response.delete_cookie('user_location')
+    # return request
+    return HttpResponse(render(request, 'api_spotify/index.html'))
 
 
 def logged(request):
+    request.session['login'] = True
     s = api.get_arr_tracks(50, "short_term")
     m = api.get_arr_tracks(50, "medium_term")
     l = api.get_arr_tracks(50, "long_term")
