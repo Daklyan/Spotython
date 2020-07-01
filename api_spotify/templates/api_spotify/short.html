@@ -3,7 +3,7 @@
         {% for i in short %}
             <div class="col mb-4">
                 <div class="card">
-                  <img src="{{ i.picture_url }}" class="card-img-top" alt="...">
+                    <a href="{{ i.track_url }}"><img src="{{ i.picture_url }}" class="card-img-top" alt="..."></a>
                   <div class="card-body">
                       <h4 class="card-title" > <a href="{{ i.track_url }}">{{ i.iter }} {{ i.track_name }}</a></h4>
                       <h5> <a href="{{ i.artist_url }}">{{ i.artist_name }}</a></h5>
