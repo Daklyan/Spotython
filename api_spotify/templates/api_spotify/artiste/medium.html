@@ -2,10 +2,9 @@
     <ul class="list-unstyled">
         {% for i in medium %}
           <li class="media">
-            <img id="img-artiste" src="{{ i.artiste_picture }}" class="mr-3">
+              <a href="{{ i.artist_url }}"> <img id="img-artiste" src="{{ i.artiste_picture }}" class="mr-3"></a>
             <div class="media-body">
-              <h5 class="mt-0 mb-1">{{ i.iter }}{{ i.artiste_name }}</h5>
-              <a href="{{ i.artist_url }}">{{ i.artiste_name }}</a>
+                <h5 class="mt-0 mb-1"> <a href="{{ i.artist_url }}">{{ i.iter }}{{ i.artiste_name }}</a></h5>
             </div>
           </li>
         {% endfor %}
