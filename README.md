@@ -10,24 +10,25 @@ Exploitation de l'API de spotify en python. Utilisation et affichage de statisti
 
 https://www.it-swarm.dev/fr/python/comment-configurer-le-projet-django-dans-pycharm/1047588497/
 
+## Installer les dépendances 
+```
+pip install -r requirements.txt
+```
+
+## Modifier le client ID et le client Secret dans api_spotify/controller/api.py
+```python
+os.environ['SPOTIPY_CLIENT_ID'] = 'CLIENT ID' # Mettre l'id de l'app
+os.environ['SPOTIPY_CLIENT_SECRET'] = 'CLIENT SECRET' # Mettre le secret de l'app
+```
+
 ## Configurer la BDD
-- Installer le package mysql client :
-   
-        pip install mysqlclient
-        
+ 
 - Créer une base de donnée : `spotython`
 
 - Lancer les migrations :
 
         python manage.py migrate
 
-## Configurer les toolsbar
-- Installer le package debug-toolbar :
-
-        pip install django-debug-toolbar
- 
-## Installer la lib spotipy
-    pip install spotipy --upgrade
 
 # Start project
 

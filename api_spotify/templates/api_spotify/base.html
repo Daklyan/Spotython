@@ -8,13 +8,14 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <title>Spotython</title>
+    <link rel="icon" href="https://puu.sh/G2rNx/1ac56c420c.png">
   </head>
   <main>
       <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div>
-                <img class="rounded float-left" src="https://upload.wikimedia.org/wikipedia/fr/6/60/Spotify_logo_sans_texte.png" width="30" height="30">
+                <img class="rounded float-left" src="https://puu.sh/G2rNx/1ac56c420c.png" width="30" height="30">
             </div>
             <div>
                 <a class="navbar-brand" href="#">Spotython</a>
@@ -25,9 +26,21 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                  <a class="nav-link" href="{% url 'api_spotify:detail' album_id=0 %}">Home <span class="sr-only">(current)</span></a>
-                </li>
+                  {% if 'login' not in request.session %}
+                    <li class="nav-item active">
+                      <a class="nav-link" href="{% url 'api_spotify:login' %}">Login<span class="sr-only">(current)</span></a>
+                    </li>
+                  {% else %}
+                      <li class="nav-item active">
+                      <a class="nav-link" href="{% url 'logout' %}">Logout <span class="sr-only">(current)</span></a>
+                    </li>
+                      <li class="nav-item active">
+                      <a class="nav-link" href="{% url 'logged' %}">Chansons<span class="sr-only">(current)</span></a>
+                    </li>
+                      <li class="nav-item active">
+                      <a class="nav-link" href="{% url 'artiste' %}">Artistes<span class="sr-only">(current)</span></a>
+                    </li>
+                  {% endif %}
               </ul>
             </div>
           </nav>
