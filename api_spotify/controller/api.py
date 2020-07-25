@@ -6,9 +6,9 @@ import os
 from spotipy import SpotifyOAuth
 
 # Client Id of the application https://developer.spotify.com/dashboard/applications
-os.environ['SPOTIPY_CLIENT_ID'] = 'bc588e09eb5e4b3a8e01068e211953e9'
+os.environ['SPOTIPY_CLIENT_ID'] = 'CLIENT_ID'
 # Client Secret of the application https://developer.spotify.com/dashboard/applications
-os.environ['SPOTIPY_CLIENT_SECRET'] = 'b87f5f087a95447e8f502058096b476d'
+os.environ['SPOTIPY_CLIENT_SECRET'] = 'CLIENT_SECRET'
 # URI to redirect after logged in
 os.environ['SPOTIPY_REDIRECT_URI'] = 'http://localhost:8000/logged'
 # Cache to store user token

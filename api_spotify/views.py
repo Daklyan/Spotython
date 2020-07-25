@@ -41,9 +41,9 @@ def logout(request):
 
 def logged(request):
     request.session['login'] = True
-    s = api.get_arr_tracks(50, "short_term")
-    m = api.get_arr_tracks(50, "medium_term")
-    l = api.get_arr_tracks(50, "long_term")
+    s = api.get_arr_tracks(25, "short_term")
+    m = api.get_arr_tracks(25, "medium_term")
+    l = api.get_arr_tracks(25, "long_term")
     result_s = []
     result_m = []
     result_l = []
@@ -91,9 +91,9 @@ def logged(request):
     return HttpResponse(render(request, 'api_spotify/logged.html', context))
 
 def artiste(request):
-    s = api.get_arr_artists(50, "short_term")
-    m = api.get_arr_artists(50, "medium_term")
-    l = api.get_arr_artists(50, "long_term")
+    s = api.get_arr_artists(25, "short_term")
+    m = api.get_arr_artists(25, "medium_term")
+    l = api.get_arr_artists(25, "long_term")
     result_s = [({
             'artiste_name': i[0],
             'artiste_picture': i[1],

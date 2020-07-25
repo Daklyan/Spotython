@@ -1,16 +1,14 @@
 <div>
-    <div class="row row-cols-1 row-cols-md-3">
+    <ul class="list-unstyled">
         {% for i in medium %}
-            <div class="col mb-4">
-                <div class="card">
-                  <a href="{{ i.track_url }}"><img src="{{ i.picture_url }}" class="card-img-top" alt="..."></a>
-                  <div class="card-body">
-                      <h4 class="card-title" > <a href="{{ i.track_url }}">{{ i.iter }} {{ i.track_name }}</a></h4>
-                      <h5> <a href="{{ i.artist_url }}">{{ i.artist_name }}</a></h5>
-                      <a href="{{ i.album_url }}"><h6> {{ i.album_name }} </h6></a>
-                  </div>
+            <li class="media">
+                <a href="{{ i.track_url }}"><img id="img-track" src="{{ i.picture_url }}" class="mr-3"></a>
+                <div class="media-body">
+                    <h5 class="mt-0 mb-1" > <a href="{{ i.track_url }}">{{ i.iter }} {{ i.track_name }}</a></h5>
+                    <h6 class="mt-0 mb-1"> <a href="{{ i.artist_url }}">{{ i.artist_name }}</a></h6>
+                    <a href="{{ i.album_url }}"><h6> {{ i.album_name }} </h6></a>
                 </div>
-            </div>
+            </li>
         {% endfor %}
-    </div>
+    </ul>
 </div>
