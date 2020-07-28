@@ -1,18 +1,21 @@
-import time
-from pathlib import Path
-
+import json
 import spotipy
 import os
+import time
 from spotipy import SpotifyOAuth
 
-# Client Id of the application https://developer.spotify.com/dashboard/applications
-os.environ['SPOTIPY_CLIENT_ID'] = 'CLIENT_ID'
-# Client Secret of the application https://developer.spotify.com/dashboard/applications
-os.environ['SPOTIPY_CLIENT_SECRET'] = 'CLIENT_SECRET'
+# JSON file with ID and secret of the app
+file = open("/home/void/Spotython/api_spotify/controller/secret.json", "r")
+file = json.load(file)
+
+# Client ID of the application https://developer.spotify.com/dashboard/applications
+os.environ['SPOTIPY_CLIENT_ID'] = file['Spotify_Client_ID']
+# Clinet SECRET of the application https://developer.spotify.com/dashboard/applications
+os.environ['SPOTIPY_CLIENT_SECRET'] = file['Spotify_Client_Secret']
 # URI to redirect after logged in
 os.environ['SPOTIPY_REDIRECT_URI'] = 'http://localhost:8000/logged'
 # Cache to store user token
-os.environ['CACHE_PATH'] = str((Path(os.getcwd())).parent.parent) + os.path.sep + ".cache_spotify"
+os.environ['CACHE_PATH'] = ".cache_spotify"
 
 
 def get_username():
@@ -77,7 +80,9 @@ def search_smth(search_string, limit):
 # limit = number of items
 # time_range = short_term || medium_term || long_term
 def get_arr_tracks(limit, time_range):
+    start_time = time.time()
     results = get_top_tracks(limit, time_range)
+    print("Tracks - after reaching API : %s s" % (time.time() - start_time))
     arr_res = [[]]
     for i, item in enumerate(results['items']):
         arr_res[i].append(item['name'])  # Track name
@@ -89,6 +94,7 @@ def get_arr_tracks(limit, time_range):
         arr_res[i].append(item['artists'][0]['external_urls']['spotify'])  # Artist URL on spotify
         arr_res.append([])
     arr_res.pop()
+    print("Tracks - after for loop : %s s" % (time.time() - start_time))
     return arr_res
 
 
@@ -100,7 +106,9 @@ def get_arr_tracks(limit, time_range):
 # limit = number of items
 # time_range = short_term || medium_term || long_term
 def get_arr_artists(limit, time_range):
+    start_time = time.time()
     results = get_top_artist(limit, time_range)
+    print("Artists - after reaching API : %s s" % (time.time() - start_time))
     arr_res = [[]]
     for i, item in enumerate(results['items']):
         arr_res[i].append(item['name'])  # Artist name
@@ -109,6 +117,7 @@ def get_arr_artists(limit, time_range):
         arr_res[i].append(item['external_urls']['spotify'])  # URL to the artist on spotify
         arr_res.append([])
     arr_res.pop()
+    print("Artists - after for loop : %s s" % (time.time() - start_time))
     return arr_res
 
 
@@ -127,6 +136,6 @@ def display_top_artist(limit, time_range):
 
 
 #  ========================== TEST FIELD ====================================
-
-print(get_top_tracks(10, "long_term"))
-print(get_arr_tracks(10, "short_term"))
+#
+# print(get_top_tracks(10, "long_term"))
+# print(get_arr_tracks(10, "short_term"))

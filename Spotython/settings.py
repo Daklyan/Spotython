@@ -80,8 +80,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'spotython',
-        'USER': 'root',
-        'PASSWORD': '',
+        'USER': 'void',
+        'PASSWORD': 'D4rkn00bs',
         'HOST': 'localhost',
         'PORT': '3308',
     }
