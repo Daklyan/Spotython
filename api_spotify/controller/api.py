@@ -17,7 +17,6 @@ os.environ['SPOTIPY_REDIRECT_URI'] = 'http://localhost:8000/logged'
 # Cache to store user token
 os.environ['CACHE_PATH'] = ".cache_spotify"
 
-
 def get_username():
     return spotipy.Spotify(auth_manager=get_auth_manager()).current_user()['display_name']
 
@@ -82,19 +81,19 @@ def search_smth(search_string, limit):
 def get_arr_tracks(limit, time_range):
     start_time = time.time()
     results = get_top_tracks(limit, time_range)
-    print("Tracks - after reaching API : %s s" % (time.time() - start_time))
+
     arr_res = [[]]
     for i, item in enumerate(results['items']):
         arr_res[i].append(item['name'])  # Track name
         arr_res[i].append(item['artists'][0]['name'])  # Main artist name
-        arr_res[i].append(get_album_pic(item['album']['id']))  # Album picture url
+        arr_res[i].append(item['album']['images'][0]['url'])  # Album picture url
         arr_res[i].append(item['album']['external_urls']['spotify'])  # Album url on spotify
         arr_res[i].append(item['external_urls']['spotify'])  # Track url on Spotify
         arr_res[i].append(item['album']['name'])  # Album name
         arr_res[i].append(item['artists'][0]['external_urls']['spotify'])  # Artist URL on spotify
         arr_res.append([])
     arr_res.pop()
-    print("Tracks - after for loop : %s s" % (time.time() - start_time))
+    print('Arr time : %s s' % (time.time() - start_time))
     return arr_res
 
 
