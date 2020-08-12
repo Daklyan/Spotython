@@ -1,21 +1,21 @@
 # Spotython
-Exploitation de l'API de spotify en python. Utilisation et affichage de statistique des données d'un utilisateur via une interface web : son, artiste, album....
+Usage of Spotify API in python. Process and display of stats form the user data via web interface : tracks, artists, ...
 
-# Configuration du project
-## Pour configurer le projet sur `pycharm`
+# Configuration of the project
+## To configure the project in `pycharm`
 - `Preferences -> Languages & Frameworks -> Django`
-    - Activer le support Django et donnez les fichiers racine du projet Django, Paramètres et Gestion du script
-- Ajouter le plugin Django dans votre interpréteur python 
-    - `Settings -> Project interpreter -> Ajouter Django`
+    - Activate Django support and give the root files of the Django project, settings and script manage
+- Add Django plugin to your Python interpreter 
+    - `Settings -> Project interpreter -> Add Django`
 
 https://www.it-swarm.dev/fr/python/comment-configurer-le-projet-django-dans-pycharm/1047588497/
 
-## Installer les dépendances 
+## Install dependencies
 ```BASH
 pip install -r requirements.txt
 ```
 
-## Modifier le client ID et le client Secret dans api_spotify/controller/secret.json
+## Modify the client ID and client Secret in api_spotify/controller/secret.json
 
 ```JSON
 {
@@ -24,17 +24,17 @@ pip install -r requirements.txt
 }
 ```
 
-## Configurer la BDD
+## Set the Database
  
-- Créer une base de donnée : `spotython`
+- Create a database : `spotython`
 
-- Lancer les migrations :
+- Launch migrations :
 
         python manage.py migrate
 
 
 # Start project
 
-Pour lancer le serveur web depuis le terminal:
+To start the project via a terminal:
 
     python manage.py runserver
