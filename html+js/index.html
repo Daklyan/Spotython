@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <title>Spotython</title>
+    <link rel="icon" href="https://puu.sh/G2rNx/1ac56c420c.png">
+</head>
+<main>
+    <div id="app">
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div>
+                    <img class="rounded float-left" src="https://puu.sh/G2rNx/1ac56c420c.png" width="30" height="30">
+                </div>
+                <div>
+                    <a class="navbar-brand" href="#">Spotython</a>
+                </div>
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <!-- if not logged -->
+                        <div v-if="logged">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#">Logout</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#">Top Chansons</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#">Top Artistes</a>
+                            </li>
+                        </div>
+                        <div v-else>
+                            <li class="nav-item active">
+                                <a class="nav-link" style="cursor: pointer" @click="login">Login</a>
+                            </li>
+                        </div>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <body>
+        <div class="container">
+            <div v-if="logged">
+            </div>
+            <div v-else>
+                <h1 style="text-align: center">You need to Log In!</h1>
+            </div>
+        </div>
+        </body>
+        <footer>
+
+        </footer>
+    </div>
+</main>
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+<script src="scripts/script.js"></script>
+</html>
