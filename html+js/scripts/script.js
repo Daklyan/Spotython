@@ -1,36 +1,37 @@
 const client_id = 'bc588e09eb5e4b3a8e01068e211953e9'
-const redirect_uri = 'http://localhost:63342/html+js/index.html?_ijt=12a9j5ccm95u781tcht2rpkicu'
+const redirect_uri = 'http://falconia.fr/spotython/index.html'
+const api_url = 'https://api.spotify.com/'
 
-function setCookie(nomCookie,valeur,jourExperation){
-    var expireDate=new Date();
-    expireDate.setDate(expireDate.getDate() + jourExperation);
-    var c_valeur=escape(valeur) + ((jourExperation==null) ? "" : "expires="+expireDate.toUTCString());
-    document.cookie=nomCookie + "=" + c_valeur;
+function setCookie(cookieName, value, expiration){
+    let expireDate = new Date();
+    expireDate.setDate(expireDate.getDate() + expiration);
+    let cookieValue=escape(value) + ((expiration==null) ? "" : "expires="+expireDate.toUTCString());
+    document.cookie = cookieName + "=" + cookieValue;
 }
-function getCookie(nomCookie){
-    var c_valeur = document.cookie;
-    var c_debut= c_valeur.indexOf("" + nomCookie + "=");
-    if (c_debut== -1){
-        c_debut= c_valeur.indexOf(nomCookie + "=");
+function getCookie(cookieName){
+    let cookieValue = document.cookie;
+    let cookieStart = cookieValue.indexOf("" + cookieName + "=");
+    if (cookieStart == -1){
+        cookieStart= c_valeur.indexOf(cookieName + "=");
     }
-    if (c_debut== -1){
-        c_valeur = null;
+    if (cookieStart == -1){
+        cookieValue = null;
     }else{
-        c_debut= c_valeur.indexOf("=", c_debut) + 1;
-        var c_fin= c_valeur.indexOf(";", c_debut);
-        if (c_fin== -1){
-            c_fin= c_valeur.length;
+        cookieStart = cookieValue.indexOf("=", cookieStart) + 1;
+        let cookieEnd = cookieValue.indexOf(";", cookieStart);
+        if (cookieEnd == -1){
+            cookieEnd = cookieValue.length;
         }
-        c_valeur = unescape(c_valeur.substring(c_debut,c_fin));
+        cookieValue = unescape(cookieValue.substring(cookieStart,cookieEnd));
     }
-    return c_valeur;
+    return cookieValue;
 }
 
 function randomString(length) {
-    var result           = '';
-    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    var charactersLength = characters.length;
-    for ( var i = 0; i < length; i++ ) {
+    let result           = '';
+    let characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let charactersLength = characters.length;
+    for (let i = 0; i < length; i++) {
         result += characters.charAt(Math.floor(Math.random() *
             charactersLength));
     }
@@ -41,11 +42,24 @@ let app = new Vue({
     el: '#app',
     data: {
         logged: false,
+        spotifyCode: null,
     },
     async beforeCreate() {
     },
     // Start when page is loaded
     mounted(){
+        if(getCookie('spotython')){
+            this.spotifyCode = getCookie('spotython')
+            this.logged = true
+        } else {
+            const queryString = window.location.search
+            const urlParams = new URLSearchParams(queryString)
+            this.spotifyCode = urlParams.get('code')
+            if (this.spotifyCode) {
+                setCookie('spotython', this.spotifyCode, 60)
+                this.logged = true
+            }
+        }
     },
     updated(){
     },
@@ -53,16 +67,18 @@ let app = new Vue({
     },
     methods: {
         async login(){
-            var state = randomString(16);
-            var scope = 'user-read-private user-read-email';
-
-            window.location.replace('https://accounts.spotify.com/authorize?' +
-                'response_type=code' +
-                '&client_id=' + client_id.toString() +
-                '&scope=' + scope.toString() +
-                '&redirect_uri=' + redirect_uri.toString() +
-                '&state=' + state.toString()
-            );
+            if(!this.logged) {
+                let state = randomString(16);
+                setCookie('spotifyState', state, 60)
+                let scope = 'user-read-private user-read-email';
+                window.location.replace('https://accounts.spotify.com/authorize?' +
+                    'response_type=code' +
+                    '&client_id=' + client_id.toString() +
+                    '&scope=' + scope.toString() +
+                    '&redirect_uri=' + redirect_uri.toString() +
+                    '&state=' + state.toString()
+                );
+            }
         }
     }
 })
