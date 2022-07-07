@@ -1,5 +1,5 @@
 const CLIENT_ID = 'bc588e09eb5e4b3a8e01068e211953e9'
-const REDIRECT_URI = 'http://falconia.fr/spotython/index.html'
+const REDIRECT_URI = 'https://www.falconia.fr/spotython/index.html'
 const API_URL = 'https://api.spotify.com'
 const SPOTIFY_AUTH_URL = 'https://accounts.spotify.com/'
 
@@ -29,6 +29,17 @@ function getCookie(cookieName){
         cookieValue = unescape(cookieValue.substring(cookieStart,cookieEnd));
     }
     return cookieValue;
+}
+
+function deleteAllCookies() {
+    var cookies = document.cookie.split(";");
+
+    for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i];
+        var eqPos = cookie.indexOf("=");
+        var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    }
 }
 
 // Code verifier generator - PKCE
@@ -113,6 +124,7 @@ let app = new Vue({
             }
 		}
 		this.getAccessToken()
+		console.log(this.test)
     },
     updated(){
     },
@@ -138,17 +150,18 @@ let app = new Vue({
         },
 		// Get access token needed to get data from spotify
 		async getAccessToken(){
-		    if(this.code){
+		    if(this.spotifyCode){
 				let content = {
 					"grant_type": "authorization_code",
-					"code": this.code,
+					"code": this.spotifyCode,
 					"redirect_uri": REDIRECT_URI,
 					"client_id": CLIENT_ID,
 					"code_verifier": this.codeChallengeVerifier,
 				}
 	        	resp = await fetch(`${API_URL}/token`, {
                 method: 'POST',
-                headers: {'Authorization': 'Basic ' + (new Buffer(CLIENT_ID + ':' + ''))},
+                headers: {'Authorization': 'Basic' + btoa(this.client_id).toString(),
+						  'Content-Type': 'application/x-www-form-urlencoded'},
                 body: JSON.stringify(content)
                 }).then(response => response.json())
 				this.test = resp
