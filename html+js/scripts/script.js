@@ -91,14 +91,15 @@ let app = new Vue({
 		state: null,
 		codeChallenge: null,
 		codeChallengeVerifier: null,
+		test: null,
     },
     async beforeCreate() {
-	    this.state = randomString(16)
-		this.codeChallengeVerifier = generateCodeVerifier()
-		this.codeChallenge = generateCodeChallengeFromVerifier(this.codeChallengerVerifier)
     },
     // Start when page is loaded
     mounted(){
+		this.state = randomString(16)
+		this.codeChallengeVerifier = generateCodeVerifier()
+		this.codeChallenge = generateCodeChallengeFromVerifier(this.codeChallengerVerifier)
         if(getCookie('spotython')){
             this.spotifyCode = getCookie('spotython')
             this.logged = true
@@ -110,7 +111,8 @@ let app = new Vue({
                 setCookie('spotython', this.spotifyCode, 60)
                 this.logged = true
             }
-        }
+		}
+		this.getAccessToken()
     },
     updated(){
     },
@@ -124,9 +126,9 @@ let app = new Vue({
                 let scope = 'user-read-private user-read-email';
                 window.location.replace(SPOTIFY_AUTH_URL + 'authorize?' +
                     'response_type=code' +
-                    '&CLIENT_ID=' + CLIENT_ID.toString() +
+                    '&client_id=' + CLIENT_ID.toString() +
                     '&scope=' + scope.toString() +
-                    '&REDIRECT_URI=' + REDIRECT_URI.toString() +
+                    '&redirect_uri=' + REDIRECT_URI.toString() +
                     '&state=' + this.state.toString() +
 					'&code_challenge_method=S256' + 
 					'&code_challenge=' + this.codeChallenge
@@ -149,7 +151,7 @@ let app = new Vue({
                 headers: {'Authorization': 'Basic ' + (new Buffer(CLIENT_ID + ':' + ''))},
                 body: JSON.stringify(content)
                 }).then(response => response.json())
-				console.log(resp)
+				this.test = resp
 			}
 		},
 	}
