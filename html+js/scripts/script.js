@@ -107,19 +107,26 @@ let app = new Vue({
     async beforeCreate() {
     },
     // Start when page is loaded
-    mounted(){
+    async mounted() {
+		
 		this.state = randomString(16)
 		this.codeChallengeVerifier = generateCodeVerifier()
-		this.codeChallenge = generateCodeChallengeFromVerifier(this.codeChallengerVerifier)
+		let tmp = generateCodeChallengeFromVerifier(this.codeChallengerVerifier)
+		await tmp.then(value => {
+			this.codeChallenge = value
+		})
         if(getCookie('spotython')){
             this.spotifyCode = getCookie('spotython')
+		//	console.log(getCookie('spotifyState').split('expires=').splice(-2, 1).join().split(','))
             this.logged = true
         } else {
             const queryString = window.location.search
             const urlParams = new URLSearchParams(queryString)
-            this.spotifyCode = urlParams.get('code')
+			this.spotifyCode = urlParams.get('code')
+			let stateCookie = getCookie('spotifyState').split('expires=').splice(-2, 1).join().split(',')
+			stateCookie.push(this.spotifyCode)
             if (this.spotifyCode) {
-                setCookie('spotython', this.spotifyCode, 60)
+                setCookie('spotython', stateCookie, 60)
                 this.logged = true
             }
 		}
@@ -134,7 +141,7 @@ let app = new Vue({
         // Gets code from spotify needed to get access token
 		login(){
             if(!this.logged) {
-                setCookie('spotifyState', this.state, 60)
+                setCookie('spotifyState', [this.state, this.codeChallenge, this.codeChallengeVerifier], 60)
                 let scope = 'user-read-private user-read-email';
                 window.location.replace(SPOTIFY_AUTH_URL + 'authorize?' +
                     'response_type=code' +
@@ -143,26 +150,30 @@ let app = new Vue({
                     '&redirect_uri=' + REDIRECT_URI.toString() +
                     '&state=' + this.state.toString() +
 					'&code_challenge_method=S256' + 
-					'&code_challenge=' + this.codeChallenge
+					'&code_challenge=' + this.codeChallenge.toString()
                 );
             }
-			getAccessToken()
         },
+		logout() {
+			deleteAllCookies()
+			this.logged = false
+			this.spotifyCode = null
+		},
 		// Get access token needed to get data from spotify
 		async getAccessToken(){
+			let cookie = getCookie('spotython').split('expires=').splice(-2, 1).join().split(',')
+			console.log(cookie)
 		    if(this.spotifyCode){
-				let content = {
-					"grant_type": "authorization_code",
-					"code": this.spotifyCode,
-					"redirect_uri": REDIRECT_URI,
-					"client_id": CLIENT_ID,
-					"code_verifier": this.codeChallengeVerifier,
-				}
 	        	resp = await fetch(`${API_URL}/token`, {
                 method: 'POST',
-                headers: {'Authorization': 'Basic' + btoa(this.client_id).toString(),
-						  'Content-Type': 'application/x-www-form-urlencoded'},
-                body: JSON.stringify(content)
+                headers: {'Content-type': 'application/x-www-form-urlencoded;charset=UTF-8'},
+                body: new URLSearchParams({
+						client_id: CLIENT_ID,
+						grant_type: "authorization_code",
+						code: cookie[3].toString(),
+						redirect_uri: REDIRECT_URI,
+						code_verifier: cookie[2].toString(),
+					})
                 }).then(response => response.json())
 				this.test = resp
 			}
