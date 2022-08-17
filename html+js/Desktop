@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Exec=/home/void/Téléchargements/Unigine_Superposition-1.1/bin/launcher
+Path=/home/void/Téléchargements/Unigine_Superposition-1.1/bin
+Name=Superposition Benchmark
+GenericName=A GPU Stress test tool from the UNIGINE
+Icon=Superposition
+Terminal=false
+Categories=Launcher;Benchmark;

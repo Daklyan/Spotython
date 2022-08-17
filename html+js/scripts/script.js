@@ -100,7 +100,7 @@ let app = new Vue({
         logged: false,
         spotifyCode: null,
 		state: null,
-		codeChallenge: null,
+		codeChallenge: "",
 		codeChallengeVerifier: null,
 		test: null,
     },
@@ -164,7 +164,7 @@ let app = new Vue({
 			let cookie = getCookie('spotython').split('expires=').splice(-2, 1).join().split(',')
 			console.log(cookie)
 		    if(this.spotifyCode){
-	        	resp = await fetch(`${API_URL}/token`, {
+	        	resp = await fetch(`${SPOTIFY_AUTH_URL}/api/token`, {
                 method: 'POST',
                 headers: {'Content-type': 'application/x-www-form-urlencoded;charset=UTF-8'},
                 body: new URLSearchParams({

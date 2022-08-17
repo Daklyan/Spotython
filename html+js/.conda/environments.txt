@@ -1,0 +1,1 @@
+/home/void/.cache/yay/miniconda3/pkg/miniconda3/opt/miniconda3
